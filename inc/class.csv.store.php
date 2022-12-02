@@ -24,14 +24,10 @@ class csvStore extends dcStore
         }
 
         try {
-            $parser = DC_STORE_NOT_UPDATE ? false : csvStoreReader::quickParse($this->xml_url, DC_TPL_CACHE, $force);
+            $parser = DC_STORE_NOT_UPDATE ? false : csvStoreReader::quickParse($this->xml_url, null, true);
         } catch (Exception $e) {
             return false;
         }
-
-        $raw_datas = !$parser ? [] : $parser->getModules();
-
-        uasort($raw_datas, fn ($a, $b) => strtolower($a['id']) <=> strtolower($b['id']));
 
         $updates = [];
         $current = array_merge($this->modules->getModules(), $this->modules->getDisabledModules());
@@ -40,21 +36,11 @@ class csvStore extends dcStore
             if (!is_array($p_infos)) {
                 continue;
             }
-            # main repository
-            if (isset($raw_datas[$p_id])) {
-                if (dcUtils::versionsCompare($raw_datas[$p_id]['version'], $p_infos['version'], '>=')) {
-                    $updates[$p_id]                    = $raw_datas[$p_id];
-                    $updates[$p_id]['root']            = $p_infos['root'];
-                    $updates[$p_id]['root_writable']   = $p_infos['root_writable'];
-                    $updates[$p_id]['current_version'] = $p_infos['version'];
-                }
-                unset($raw_datas[$p_id]);
-            }
             # per module third-party repository
             if (!empty($p_infos['repository']) && DC_ALLOW_REPOSITORIES) {
                 try {
                     $dcs_url    = substr($p_infos['repository'], -12, 12) == '/dcstore.xml' ? $p_infos['repository'] : http::concatURL($p_infos['repository'], 'dcstore.xml');
-                    $dcs_parser = csvStoreReader::quickParse($dcs_url, DC_TPL_CACHE, $force);
+                    $dcs_parser = csvStoreReader::quickParse($dcs_url, null, true);
                     if ($dcs_parser !== false) {
                         $dcs_raw_datas = $dcs_parser->getModules();
                         if (isset($dcs_raw_datas[$p_id]) && dcUtils::versionsCompare($dcs_raw_datas[$p_id]['version'], $p_infos['version'], '>=')) {
@@ -73,7 +59,7 @@ class csvStore extends dcStore
         }
 
         $this->data = [
-            'new'    => $raw_datas,
+            'new'    => [],
             'update' => $updates,
         ];
 

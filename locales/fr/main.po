@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: checkStoreVersion 0.1-dev\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2022-12-02T23:12:39+00:00\n"
+"Last-Translator: Jean-Christian Denis\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Store version"
+msgstr "Version de dépôt"
+
+msgid "Check stores versions"
+msgstr "Vérifier les version sur les dépôts"
+
+msgid "There is no module to check"
+msgstr "Il n'y a pas de module à vérifier"
+
+msgid "Check lastest stores versions"
+msgstr "Vérifier les dernières versions sur les dépôts"
+
+msgid "Modules list"
+msgstr "Liste des modules"
+
+msgid "Latest version"
+msgstr "Dernière version"
+
+msgid "Written for Dotclear"
+msgstr "Ecrit pour Dotclear"
+
+msgid "No version available"
+msgstr "Aucune version disponible"
+
+msgid "No update available"
+msgstr "Aucune mise à jour disponible"
+
+msgid "Newer version available"
+msgstr "Une nouvelle version disponible"
+
+msgid "No version available on stores"
+msgstr "Aucune version disponible sur les dépôts"
+

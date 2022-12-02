@@ -49,7 +49,7 @@ class csvBehaviors
 
         echo
         '<div class="multi-part" id="csv" title="' . __('Store version') . '">' .
-        '<h3>' . __('Check store version') . '</h3>';
+        '<h3>' . __('Check stores versions') . '</h3>';
 
         if (!count($list)) {
             echo
@@ -61,7 +61,7 @@ class csvBehaviors
 
         echo
         '<form method="post" action="' . $page_url . '" id="csvform">' .
-        '<p><input type="submit" name="csvcheck" value="' . __('Check lastest store versions') . '" />' .
+        '<p><input type="submit" name="csvcheck" value="' . __('Check lastest stores versions') . '" />' .
         $core->formNonce() . '</p>' .
         '</form>';
 
@@ -84,12 +84,26 @@ class csvBehaviors
         '<div class="table-outer">' .
         '<table id="mvmodules" class="modules">' .
         '<caption class="hidden">' . html::escapeHTML(__('Modules list')) . '</caption><tr>' .
-        '<th class="first nowrap" colspan="2">' . __('Name') . '</th>' .
+        '<th class="first nowrap" colspan="3">' . __('Name') . '</th>' .
         '<th class="nowrap count" scope="col">' . __('Current version') . '</th>' .
         '<th class="nowrap count" scope="col">' . __('Latest version') . '</th>' .
         '<th class="nowrap count" scope="col">' . __('Written for Dotclear') . '</th>';
 
+        if (DC_ALLOW_REPOSITORIES) {
+            echo
+            '<th class="nowrap count" scope="col">' . __('Repository') . '</th>';
+        }
+
         foreach ($modules as $id => $module) {
+
+            if (!isset($repos[$id])) {
+                $img = [__('No version available'), 'check-off.png'];
+            } elseif (isset($repos[$id]) && dcUtils::versionsCompare(DC_VERSION, $repos[$id]['dc_min'], '>=', false)) {
+                $img = [__('No update available'), 'check-wrn.png'];
+            } else {
+                $img = [__('Newer version available'), 'check-on.png'];
+            }
+            $img = sprintf('<img alt="%1$s" title="%1$s" src="images/%2$s" />', $img[0], $img[1]);
 
             $default_icon = false;
 
@@ -110,23 +124,35 @@ class csvBehaviors
             }
 
             echo
-            '<tr class="line" id="mvmodules_m_' . html::escapeHTML($id) . '">' .
-            '<td class="module-icon nowrap minimal">' .
-                dcAdminHelper::adminIcon($icon, false, html::escapeHTML($id), html::escapeHTML($id)) .
-            '</td>' .
-            '<th class="module-name nowrap minimal" scope="row">' .
-                html::escapeHTML($module['name']) . ($id != $module['name'] ? sprintf(__(' (%s)'), $id) : '') .
+            '<tr class="line' . (isset($repos[$id]) ? '' : ' offline') . '" id="mvmodules_m_' . html::escapeHTML($id) . '">' .
+            '<td class="module-icon nowrap">' . 
+            $img . '</td>' .
+            '<td class="module-icon nowrap">' . 
+            dcAdminHelper::adminIcon($icon, false, html::escapeHTML($id), html::escapeHTML($id)) . '</td>' .
+            '<th class="module-name nowrap" scope="row">' . 
+            html::escapeHTML($module['name']) . ($id != $module['name'] ? sprintf(__(' (%s)'), $id) : '') .
             '</td>';
 
             if (isset($repos[$id])) {
                 echo
-                '<td class="module-current-version nowrap count minimal">' . html::escapeHTML($repos[$id]['current_version']) . '</td>' .
-                '<td class="module-version nowrap count">' . html::escapeHTML($repos[$id]['version']) . '</td>' .
-                '<td class="module-version nowrap count">' . html::escapeHTML($repos[$id]['dc_min']) . '</td>';
+                '<td class="module-version nowrap count">' . 
+                html::escapeHTML($repos[$id]['current_version']) . '</td>' .
+                '<td class="module-version nowrap count maximal">' . 
+                html::escapeHTML($repos[$id]['version']) . '</td>' .
+                '<td class="module-version nowrap count">' . 
+                html::escapeHTML($repos[$id]['dc_min']) . '</td>';
+
+                if (DC_ALLOW_REPOSITORIES) {
+                    echo
+                    '<td class="module-repository nowrap count">' . 
+                    (empty($module['repository']) ? __('Official repository') : __('Third-party repository')) . '</td>';
+                }
             } else {
                 echo 
-                '<td class="module-current-version nowrap count minimal">' . html::escapeHTML($module['version']) . '</td>' .
-                '<td class="module-version nowrap count" colspan="2">' . html::escapeHTML(__('No version available on store')) . '</td>';
+                '<td class="module-current-version nowrap count">' . 
+                html::escapeHTML($module['version']) . '</td>' .
+                '<td class="module-version nowrap count maximal" colspan="' . (DC_ALLOW_REPOSITORIES ? '3' : '2') . '">' . 
+                html::escapeHTML(__('No version available on stores')) . '</td>';
             }
 
             echo 
