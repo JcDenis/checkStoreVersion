@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<modules xmlns:da="http://dotaddict.org/da/">
+  <module id="checkStoreVersion">
+    <name>Check store version</name>
+    <version>0.1</version>
+    <author>Jean-Christian Denis and Contributors</author>
+    <desc>Check plugins and themes available version before update</desc>
+    <file>https://github.com/JcDenis/checkStoreVersion/releases/download/v0.1/plugin-checkStoreVersion.zip</file>
+    <da:dcmin>2.19</da:dcmin>
+    <da:details>https://plugins.dotaddict.org/dc2/details/checkStoreVersion</da:details>
+    <da:support>https://github.com/JcDenis/checkStoreVersion</da:support>
+  </module>
+</modules>
