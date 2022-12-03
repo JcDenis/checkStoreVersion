@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: checkStoreVersion 0.1-dev\n"
+"Project-Id-Version: checkStoreVersion 0.2\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-12-02T23:12:39+00:00\n"
+"PO-Revision-Date: 2022-12-03T19:31:22+00:00\n"
 "Last-Translator: Jean-Christian Denis\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,9 @@ msgstr "Version de dépôt"
 
 msgid "Check stores versions"
 msgstr "Vérifier les version sur les dépôts"
+
+msgid "This version does not support Dotclear > %s"
+msgstr "Cette version ne supporte pas Dotclear > %s"
 
 msgid "There is no module to check"
 msgstr "Il n'y a pas de module à vérifier"
