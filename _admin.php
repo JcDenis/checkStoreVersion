@@ -76,10 +76,6 @@ class csvBehaviors
 
     private static function modulesList($modules, $repos)
     {
-        if (empty($repos)) {
-            return;
-        }
-
         echo 
         '<div class="table-outer">' .
         '<table id="mvmodules" class="modules">' .
