@@ -13,7 +13,7 @@ _CheckStoreVersion_ is a plugin for the open-source
 web publishing software called Dotclear.
 
 This plugin check official or third-party repositories of installed plugins or themes 
-(even if they are disbaled) to see if a version exists and are newer then the one installed.
+(even if they are disbaled) to see if a version exists and is newer than the one installed.
 
 ## REQUIREMENTS
 
