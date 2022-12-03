@@ -25,6 +25,8 @@ $core->addBehavior('themesToolsTabs', ['csvBehaviors', 'themesToolsTabs']);
 
 class csvBehaviors
 {
+    public const DC_MAX = '2.23.1';
+
     # admin plugins page tab
     public static function pluginsToolsTabs(dcCore $core): void
     {
@@ -40,16 +42,24 @@ class csvBehaviors
     # generic page tab
     protected static function modulesToolsTabs(dcCore $core, dcModules $modules, array $excludes, string $page_url): void
     {
+        echo
+        '<div class="multi-part" id="csv" title="' . __('Store version') . '">' .
+        '<h3>' . __('Check stores versions') . '</h3>';
+
+        if (!method_exists('dcUtils', 'versionsCompare')
+         || dcUtils::versionsCompare(DC_VERSION, self::DC_MAX, '>', false)) {
+            echo
+            '<div class="error"><p>' . sprintf(__('This version does not support Dotclear > %s'), self::DC_MAX) . '</p></div>';
+
+            return;
+        }
+
         $list = [];
         foreach (array_merge($modules->getModules(), $modules->getDisabledModules()) as $id => $module) {
             if (!in_array($id, $excludes)) {
                 $list[$id] = $module;
             }
         }
-
-        echo
-        '<div class="multi-part" id="csv" title="' . __('Store version') . '">' .
-        '<h3>' . __('Check stores versions') . '</h3>';
 
         if (!count($list)) {
             echo
