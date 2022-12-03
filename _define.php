@@ -25,6 +25,6 @@ $this->registerModule(
         'type'        => 'plugin',
         'support'     => 'https://github.com/JcDenis/checkStoreVersion',
         'details'     => 'https://plugins.dotaddict.org/dc2/details/checkStoreVersion',
-        'repository'  => 'https://raw.githubusercontent.com/JcDenis/checkStoreVersion/master/'
+        'repository'  => 'https://raw.githubusercontent.com/JcDenis/checkStoreVersion/master/dcstore.xml'
     ]
 );
