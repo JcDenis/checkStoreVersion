@@ -18,7 +18,7 @@ $this->registerModule(
     'Check store version',
     'Check plugins and themes available version before update',
     'Jean-Christian Denis and Contributors',
-    '0.1.2',
+    '0.2',
     [
         'requires'    => [['core', '2.19']],
         'permissions' => null,
