@@ -30,17 +30,17 @@ class csvBehaviors
     # admin plugins page tab
     public static function pluginsToolsTabs(dcCore $core): void
     {
-        self::modulesToolsTabs($core, $core->plugins, explode(',', DC_DISTRIB_PLUGINS), $core->adminurl->get('admin.plugins') . '#csv');
+        self::modulesToolsTabs($core, $core->plugins, explode(',', DC_DISTRIB_PLUGINS), $core->adminurl->get('admin.plugins'));
     }
 
     # admin themes page tab
     public static function themesToolsTabs(dcCore $core): void
     {
-        self::modulesToolsTabs($core, $core->themes, explode(',', DC_DISTRIB_THEMES), $core->adminurl->get('admin.blog.theme') . '#csv');
+        self::modulesToolsTabs($core, $core->themes, explode(',', DC_DISTRIB_THEMES), $core->adminurl->get('admin.blog.theme'));
     }
 
     # generic page tab
-    protected static function modulesToolsTabs(dcCore $core, dcModules $modules, array $excludes, string $page_url): void
+    private static function modulesToolsTabs(dcCore $core, dcModules $modules, array $excludes, string $page_url): void
     {
         echo
         '<div class="multi-part" id="csv" title="' . __('Store version') . '">' .
@@ -70,7 +70,7 @@ class csvBehaviors
         }
 
         echo
-        '<form method="post" action="' . $page_url . '" id="csvform">' .
+        '<form method="post" action="' . $page_url . '#csv" id="csvform">' .
         '<p><input type="submit" name="csvcheck" value="' . __('Check lastest stores versions') . '" />' .
         $core->formNonce() . '</p>' .
         '</form>';
