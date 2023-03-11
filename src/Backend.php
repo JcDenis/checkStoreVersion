@@ -35,7 +35,7 @@ class Backend extends dcNsProcess
         }
 
         dcCore::app()->addBehaviors([
-            'pluginsToolsTabsV2' => [BackendBehaviors::class, 'pluginTabs'],
+            'pluginsToolsTabsV2' => [BackendBehaviors::class, 'pluginsTabs'],
             'themesToolsTabsV2'  => [BackendBehaviors::class, 'themesTabs'],
         ]);
 

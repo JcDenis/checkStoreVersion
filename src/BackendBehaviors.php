@@ -24,13 +24,13 @@ use html;
 class BackendBehaviors
 {
     # admin plugins page tab
-    public static function pluginsToolsTabs(): void
+    public static function pluginsTabs(): void
     {
         self::modulesToolsTabs(dcCore::app()->plugins, explode(',', DC_DISTRIB_PLUGINS), dcCore::app()->adminurl->get('admin.plugins'));
     }
 
     # admin themes page tab
-    public static function themesToolsTabs(): void
+    public static function themesTabs(): void
     {
         self::modulesToolsTabs(dcCore::app()->themes, explode(',', DC_DISTRIB_THEMES), dcCore::app()->adminurl->get('admin.blog.theme'));
     }
