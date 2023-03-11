@@ -10,21 +10,26 @@
  * @copyright Jean-Christian Denis
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return null;
-}
+declare(strict_types=1);
 
-class csvStore extends dcStore
+namespace Dotclear\Plugin\checkStoreVersion;
+
+use dcStore;
+use dcUtils;
+use Exception;
+use http;
+
+class CsvStore extends dcStore
 {
-	# overwrite dcStore::check to remove cache and use csvStoreReader and check disabled modules
-    public function check($force = true)
+    # overwrite dcStore::check to remove cache and use csvStoreReader and check disabled modules
+    public function check(bool $force = true): bool
     {
         if (!$this->xml_url) {
             return false;
         }
 
         try {
-            $parser = DC_STORE_NOT_UPDATE ? false : csvStoreReader::quickParse($this->xml_url, DC_TPL_CACHE, $force);
+            $parser = DC_STORE_NOT_UPDATE ? false : CsvStoreReader::quickParse($this->xml_url, DC_TPL_CACHE, $force);
         } catch (Exception $e) {
             return false;
         }
@@ -54,7 +59,7 @@ class csvStore extends dcStore
             if (!empty($p_infos['repository']) && DC_ALLOW_REPOSITORIES) {
                 try {
                     $dcs_url    = substr($p_infos['repository'], -12, 12) == '/dcstore.xml' ? $p_infos['repository'] : http::concatURL($p_infos['repository'], 'dcstore.xml');
-                    $dcs_parser = csvStoreReader::quickParse($dcs_url, DC_TPL_CACHE, $force);
+                    $dcs_parser = CsvStoreReader::quickParse($dcs_url, DC_TPL_CACHE, $force);
                     if ($dcs_parser !== false) {
                         $dcs_raw_datas = $dcs_parser->getModules();
                         if (isset($dcs_raw_datas[$p_id]) && dcUtils::versionsCompare($dcs_raw_datas[$p_id]['version'], $p_infos['version'], '>=')) {

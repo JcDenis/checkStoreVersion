@@ -10,46 +10,44 @@
  * @copyright Jean-Christian Denis
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return null;
-}
+declare(strict_types=1);
 
-# only superadmin
-if (!$core->auth->isSuperAdmin()) {
-    return null;
-}
+namespace Dotclear\Plugin\checkStoreVersion;
 
-# admin behaviors
-$core->addBehavior('pluginsToolsTabs', ['csvBehaviors', 'pluginsToolsTabs']);
-$core->addBehavior('themesToolsTabs', ['csvBehaviors', 'themesToolsTabs']);
+use dcAdminHelper;
+use dcCore;
+use dcModules;
+use dcPage;
+use dcUtils;
+use html;
 
-class csvBehaviors
+class BackendBehaviors
 {
-    public const DC_MAX = '2.23.1';
-
     # admin plugins page tab
-    public static function pluginsToolsTabs(dcCore $core): void
+    public static function pluginsToolsTabs(): void
     {
-        self::modulesToolsTabs($core, $core->plugins, explode(',', DC_DISTRIB_PLUGINS), $core->adminurl->get('admin.plugins'));
+        self::modulesToolsTabs(dcCore::app()->plugins, explode(',', DC_DISTRIB_PLUGINS), dcCore::app()->adminurl->get('admin.plugins'));
     }
 
     # admin themes page tab
-    public static function themesToolsTabs(dcCore $core): void
+    public static function themesToolsTabs(): void
     {
-        self::modulesToolsTabs($core, $core->themes, explode(',', DC_DISTRIB_THEMES), $core->adminurl->get('admin.blog.theme'));
+        self::modulesToolsTabs(dcCore::app()->themes, explode(',', DC_DISTRIB_THEMES), dcCore::app()->adminurl->get('admin.blog.theme'));
     }
 
     # generic page tab
-    private static function modulesToolsTabs(dcCore $core, dcModules $modules, array $excludes, string $page_url): void
+    private static function modulesToolsTabs(dcModules $modules, array $excludes, string $page_url): void
     {
+        $repos = empty($_POST['csvcheck']) ? null :
+            (new CsvStore($modules, (string) dcCore::app()->blog->settings->get('system')->get('store_plugin_url'), true))->get(true);
+
         echo
         '<div class="multi-part" id="csv" title="' . __('Store version') . '">' .
         '<h3>' . __('Check stores versions') . '</h3>';
 
-        if (!method_exists('dcUtils', 'versionsCompare')
-         || dcUtils::versionsCompare(DC_VERSION, self::DC_MAX, '>', false)) {
+        if (dcUtils::versionsCompare(DC_VERSION, My::DC_MAX, '>', false)) {
             echo
-            '<div class="error"><p>' . sprintf(__('This version does not support Dotclear > %s'), self::DC_MAX) . '</p></div>';
+            '<div class="error"><p>' . sprintf(__('This version does not support Dotclear > %s'), My::DC_MAX) . '</p></div>';
 
             return;
         }
@@ -72,12 +70,11 @@ class csvBehaviors
         echo
         '<form method="post" action="' . $page_url . '#csv" id="csvform">' .
         '<p><input type="submit" name="csvcheck" value="' . __('Check lastest stores versions') . '" />' .
-        $core->formNonce() . '</p>' .
+        dcCore::app()->formNonce() . '</p>' .
         '</form>';
 
-        if (!empty($_POST['csvcheck'])) {
-            $store   = new csvStore($modules, dcCore::app()->blog->settings->system->store_plugin_url, true);
-            self::modulesList($list, $store->get(true));
+        if ($repos !== null) {
+            self::modulesList($list, $repos);
         }
 
         echo
@@ -86,7 +83,7 @@ class csvBehaviors
 
     private static function modulesList($modules, $repos)
     {
-        echo 
+        echo
         '<div class="table-outer">' .
         '<table id="mvmodules" class="modules">' .
         '<caption class="hidden">' . html::escapeHTML(__('Modules list')) . '</caption><tr>' .
@@ -101,7 +98,6 @@ class csvBehaviors
         }
 
         foreach ($modules as $id => $module) {
-
             if (!isset($repos[$id])) {
                 $img = [__('No version available'), 'check-off.png'];
             } elseif (isset($repos[$id]) && dcUtils::versionsCompare(DC_VERSION, $repos[$id]['dc_min'], '>=', false)) {
@@ -131,37 +127,37 @@ class csvBehaviors
 
             echo
             '<tr class="line' . (isset($repos[$id]) ? '' : ' offline') . '" id="mvmodules_m_' . html::escapeHTML($id) . '">' .
-            '<td class="module-icon nowrap">' . 
+            '<td class="module-icon nowrap">' .
             $img . '</td>' .
-            '<td class="module-icon nowrap">' . 
+            '<td class="module-icon nowrap">' .
             dcAdminHelper::adminIcon($icon, false, html::escapeHTML($id), html::escapeHTML($id)) . '</td>' .
-            '<th class="module-name nowrap" scope="row">' . 
+            '<th class="module-name nowrap" scope="row">' .
             html::escapeHTML($module['name']) . ($id != $module['name'] ? sprintf(__(' (%s)'), $id) : '') .
             '</td>';
 
             if (isset($repos[$id])) {
                 echo
-                '<td class="module-version nowrap count">' . 
+                '<td class="module-version nowrap count">' .
                 html::escapeHTML($repos[$id]['current_version']) . '</td>' .
-                '<td class="module-version nowrap count maximal">' . 
+                '<td class="module-version nowrap count maximal">' .
                 html::escapeHTML($repos[$id]['version']) . '</td>' .
-                '<td class="module-version nowrap count">' . 
+                '<td class="module-version nowrap count">' .
                 html::escapeHTML($repos[$id]['dc_min']) . '</td>';
 
                 if (DC_ALLOW_REPOSITORIES) {
                     echo
-                    '<td class="module-repository nowrap count">' . 
+                    '<td class="module-repository nowrap count">' .
                     (empty($module['repository']) ? __('Official repository') : __('Third-party repository')) . '</td>';
                 }
             } else {
-                echo 
-                '<td class="module-current-version nowrap count">' . 
+                echo
+                '<td class="module-current-version nowrap count">' .
                 html::escapeHTML($module['version']) . '</td>' .
-                '<td class="module-version nowrap count maximal" colspan="' . (DC_ALLOW_REPOSITORIES ? '3' : '2') . '">' . 
+                '<td class="module-version nowrap count maximal" colspan="' . (DC_ALLOW_REPOSITORIES ? '3' : '2') . '">' .
                 html::escapeHTML(__('No version available on stores')) . '</td>';
             }
 
-            echo 
+            echo
             '</tr>';
         }
 

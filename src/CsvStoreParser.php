@@ -10,13 +10,15 @@
  * @copyright Jean-Christian Denis
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return null;
-}
+declare(strict_types=1);
 
-class csvStoreParser extends dcStoreParser
+namespace Dotclear\Plugin\checkStoreVersion;
+
+use dcStoreParser;
+
+class CsvStoreParser extends dcStoreParser
 {
-	# overwrite dcStoreParser to bypasse current dotclear version
+    # overwrite dcStoreParser to bypasse current dotclear version
     protected function _parse()
     {
         if (empty($this->xml->module)) {

@@ -10,9 +10,15 @@
  * @copyright Jean-Christian Denis
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-class csvStoreReader extends dcStoreReader
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\checkStoreVersion;
+
+use dcStoreReader;
+
+class CsvStoreReader extends dcStoreReader
 {
-	# overwrite dcStoreReader to remove cache and use mvStoreParser
+    # overwrite dcStoreReader to remove cache and use mvStoreParser
     public function parse($url)
     {
         $this->validators = [];
@@ -21,10 +27,10 @@ class csvStoreReader extends dcStoreReader
             return false;
         }
 
-        return new csvStoreParser($this->getContent());
+        return new CsvStoreParser($this->getContent());
     }
 
-	# overwrite dcStoreReader to remove cache and use mvStoreParser
+    # overwrite dcStoreReader to remove cache and use mvStoreParser
     public static function quickParse($url, $cache_dir = null, $force = true)
     {
         $parser = new self();

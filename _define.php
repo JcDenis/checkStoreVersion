@@ -18,13 +18,13 @@ $this->registerModule(
     'Check store version',
     'Check plugins and themes available version before update',
     'Jean-Christian Denis and Contributors',
-    '0.2',
+    '0.3',
     [
-        'requires'    => [['core', '2.19']],
+        'requires'    => [['core', '2.25']],
         'permissions' => null,
         'type'        => 'plugin',
         'support'     => 'https://github.com/JcDenis/checkStoreVersion',
         'details'     => 'https://plugins.dotaddict.org/dc2/details/checkStoreVersion',
-        'repository'  => 'https://raw.githubusercontent.com/JcDenis/checkStoreVersion/master/dcstore.xml'
+        'repository'  => 'https://raw.githubusercontent.com/JcDenis/checkStoreVersion/master/dcstore.xml',
     ]
 );
