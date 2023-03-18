@@ -47,7 +47,8 @@ class BackendBehaviors
 
         if (dcUtils::versionsCompare(DC_VERSION, My::DC_MAX, '>', false)) {
             echo
-            '<div class="error"><p>' . sprintf(__('This version does not support Dotclear > %s'), My::DC_MAX) . '</p></div>';
+            '<div class="error"><p>' . sprintf(__('This version does not support Dotclear > %s'), My::DC_MAX) . '</p></div>' .
+            '</div>';
 
             return;
         }
