@@ -1,3 +1,8 @@
+0.3.1 - 2003.03.19
+- fix init check
+- fix missing closing div
+- fix tab methods names
+
 0.3 - 2023.03.11
 - required Dotclear 2.25, up to 2.25.3
 - use php namespace
