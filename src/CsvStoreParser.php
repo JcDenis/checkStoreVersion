@@ -19,7 +19,7 @@ use dcStoreParser;
 class CsvStoreParser extends dcStoreParser
 {
     # overwrite dcStoreParser to bypasse current dotclear version
-    protected function _parse()
+    protected function _parse(): void
     {
         if (empty($this->xml->module)) {
             return;

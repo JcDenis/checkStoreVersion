@@ -82,7 +82,7 @@ class BackendBehaviors
         '</div>';
     }
 
-    private static function modulesList($modules, $repos)
+    private static function modulesList(array $modules, array $repos): void
     {
         echo
         '<div class="table-outer">' .
