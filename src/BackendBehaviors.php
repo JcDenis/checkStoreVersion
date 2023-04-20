@@ -19,7 +19,7 @@ use dcCore;
 use dcModules;
 use dcPage;
 use dcUtils;
-use html;
+use Dotclear\Helper\Html\Html;
 
 class BackendBehaviors
 {
@@ -102,7 +102,7 @@ class BackendBehaviors
         echo
         '<div class="table-outer">' .
         '<table id="mvmodules" class="modules">' .
-        '<caption class="hidden">' . html::escapeHTML(__('Modules list')) . '</caption><tr>' .
+        '<caption class="hidden">' . Html::escapeHTML(__('Modules list')) . '</caption><tr>' .
         '<th class="first nowrap" colspan="3">' . __('Name') . '</th>' .
         '<th class="nowrap count" scope="col">' . __('Current version') . '</th>' .
         '<th class="nowrap count" scope="col">' . __('Latest version') . '</th>' .
@@ -142,23 +142,23 @@ class BackendBehaviors
             }
 
             echo
-            '<tr class="line' . (isset($repos[$id]) ? '' : ' offline') . '" id="mvmodules_m_' . html::escapeHTML($id) . '">' .
+            '<tr class="line' . (isset($repos[$id]) ? '' : ' offline') . '" id="mvmodules_m_' . Html::escapeHTML($id) . '">' .
             '<td class="module-icon nowrap">' .
             $img . '</td>' .
             '<td class="module-icon nowrap">' .
-            dcAdminHelper::adminIcon($icon, false, html::escapeHTML($id), html::escapeHTML($id)) . '</td>' .
+            dcAdminHelper::adminIcon($icon, false, Html::escapeHTML($id), Html::escapeHTML($id)) . '</td>' .
             '<th class="module-name nowrap" scope="row">' .
-            html::escapeHTML($module['name']) . ($id != $module['name'] ? sprintf(__(' (%s)'), $id) : '') .
+            Html::escapeHTML($module['name']) . ($id != $module['name'] ? sprintf(__(' (%s)'), $id) : '') .
             '</td>';
 
             if (isset($repos[$id])) {
                 echo
                 '<td class="module-version nowrap count">' .
-                html::escapeHTML($repos[$id]['current_version']) . '</td>' .
+                Html::escapeHTML($repos[$id]['current_version']) . '</td>' .
                 '<td class="module-version nowrap count maximal">' .
-                html::escapeHTML($repos[$id]['version']) . '</td>' .
+                Html::escapeHTML($repos[$id]['version']) . '</td>' .
                 '<td class="module-version nowrap count">' .
-                html::escapeHTML($repos[$id]['dc_min']) . '</td>';
+                Html::escapeHTML($repos[$id]['dc_min']) . '</td>';
 
                 if (DC_ALLOW_REPOSITORIES) {
                     echo
@@ -168,9 +168,9 @@ class BackendBehaviors
             } else {
                 echo
                 '<td class="module-current-version nowrap count">' .
-                html::escapeHTML($module['version']) . '</td>' .
+                Html::escapeHTML($module['version']) . '</td>' .
                 '<td class="module-version nowrap count maximal" colspan="' . (DC_ALLOW_REPOSITORIES ? '3' : '2') . '">' .
-                html::escapeHTML(__('No version available on stores')) . '</td>';
+                Html::escapeHTML(__('No version available on stores')) . '</td>';
             }
 
             echo
