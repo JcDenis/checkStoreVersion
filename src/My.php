@@ -16,5 +16,5 @@ namespace Dotclear\Plugin\checkStoreVersion;
 
 class My
 {
-    public const DC_MAX = '2.25.3';
+    public const DC_MAX = '2.26';
 }
