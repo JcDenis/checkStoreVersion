@@ -27,6 +27,9 @@ class CsvStoreParser extends dcStoreParser
 
         foreach ($this->xml->module as $i) {
             $attrs = $i->attributes();
+            if (!isset($attrs['id'])) {
+                continue;
+            }
 
             $item = [];
 

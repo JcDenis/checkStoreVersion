@@ -26,18 +26,33 @@ class BackendBehaviors
     # admin plugins page tab
     public static function pluginsTabs(): void
     {
+        // nullsafe PHP < 8.0
+        if (is_null(dcCore::app()->adminurl)) {
+            return;
+        }
+
         self::modulesToolsTabs(dcCore::app()->plugins, explode(',', DC_DISTRIB_PLUGINS), dcCore::app()->adminurl->get('admin.plugins'));
     }
 
     # admin themes page tab
     public static function themesTabs(): void
     {
+        // nullsafe PHP < 8.0
+        if (is_null(dcCore::app()->adminurl)) {
+            return;
+        }
+
         self::modulesToolsTabs(dcCore::app()->themes, explode(',', DC_DISTRIB_THEMES), dcCore::app()->adminurl->get('admin.blog.theme'));
     }
 
     # generic page tab
     private static function modulesToolsTabs(dcModules $modules, array $excludes, string $page_url): void
     {
+        // nullsafe PHP < 8.0
+        if (is_null(dcCore::app()->blog)) {
+            return;
+        }
+
         $repos = empty($_POST['csvcheck']) ? null :
             (new CsvStore($modules, (string) dcCore::app()->blog->settings->get('system')->get('store_plugin_url'), true))->get(true);
 
