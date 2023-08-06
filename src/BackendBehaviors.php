@@ -26,22 +26,12 @@ class BackendBehaviors
     # admin plugins page tab
     public static function pluginsTabs(): void
     {
-        // nullsafe PHP < 8.0
-        if (is_null(dcCore::app()->adminurl)) {
-            return;
-        }
-
         self::modulesToolsTabs(dcCore::app()->plugins, explode(',', DC_DISTRIB_PLUGINS), dcCore::app()->adminurl->get('admin.plugins'));
     }
 
     # admin themes page tab
     public static function themesTabs(): void
     {
-        // nullsafe PHP < 8.0
-        if (is_null(dcCore::app()->adminurl)) {
-            return;
-        }
-
         self::modulesToolsTabs(dcCore::app()->themes, explode(',', DC_DISTRIB_THEMES), dcCore::app()->adminurl->get('admin.blog.theme'));
     }
 
