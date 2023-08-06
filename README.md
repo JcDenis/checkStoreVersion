@@ -1,10 +1,9 @@
 # README
 
-[![Release](https://img.shields.io/github/v/release/JcDenis/checkStoreVersion)](https://git.dotclear.watch/JcDenis/checkStoreVersion/releases)
-[![Date](https://img.shields.io/github/release-date/JcDenis/checkStoreVersion)](https://git.dotclear.watch/JcDenis/checkStoreVersion/releases)
-[![Issues](https://img.shields.io/github/issues/JcDenis/checkStoreVersion)](https://git.dotclear.watch/JcDenis/checkStoreVersion/issues)
-[![Dotclear](https://img.shields.io/badge/dotclear-v2.25-blue.svg)](https://fr.dotclear.org/download)
-[![Dotaddict](https://img.shields.io/badge/dotaddict-official-green.svg)](https://plugins.dotaddict.org/dc2/details/checkStoreVersion)
+[![Release](https://img.shields.io/badge/release-0.4-a2cbe9.svg)](https://git.dotclear.watch/JcDenis/checkStoreVersion/releases)
+[![Date](https://img.shields.io/badge/date-2023.08.06-c44d58.svg)](https://git.dotclear.watch/JcDenis/checkStoreVersion/releases)
+[![Dotclear](https://img.shields.io/badge/dotclear-v2.25-137bbb.svg)](https://fr.dotclear.org/download)
+[![Dotaddict](https://img.shields.io/badge/dotaddict-official-9ac123.svg)](https://plugins.dotaddict.org/dc2/details/checkStoreVersion)
 [![License](https://img.shields.io/github/license/JcDenis/checkStoreVersion)](https://git.dotclear.watch/JcDenis/checkStoreVersion/blob/master/LICENSE)
 
 ## WHAT IS CHECKSTOREVERSION ?
