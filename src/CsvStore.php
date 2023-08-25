@@ -22,7 +22,7 @@ use Exception;
 class CsvStore extends dcStore
 {
     # overwrite dcStore::check to remove cache and use csvStoreReader and check disabled modules
-    public function check(bool $force = true): bool
+    public function check(?bool $force = true): bool
     {
         if (!$this->xml_url) {
             return false;
