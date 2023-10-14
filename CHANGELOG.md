@@ -1,3 +1,9 @@
+checkStoreVersion 0.5 - 2023.10.14
+===========================================================
+* Require Dotclear 2.27 to 2.27.3
+* Require PHP 7.4+
+* Check versions > 2.27.3
+
 checkStoreVersion 0.4 - 2023.08.06
 ===========================================================
 * Require Dotclear 2.25

@@ -10,17 +10,13 @@
  * @copyright Jean-Christian Denis
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_RC_PATH')) {
-    return null;
-}
-
 $this->registerModule(
     'Check store version',
     'Check plugins and themes available version before update',
     'Jean-Christian Denis and Contributors',
-    '0.4',
+    '0.5',
     [
-        'requires'    => [['core', '2.25']],
+        'requires'    => [['core', '2.27']],
         'permissions' => null,
         'type'        => 'plugin',
         'support'     => 'https://git.dotclear.watch/JcDenis/' . basename(__DIR__) . '/issues',
