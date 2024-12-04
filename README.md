@@ -6,6 +6,10 @@
 [![Dotaddict](https://img.shields.io/badge/dotaddict-official-9ac123.svg)](https://plugins.dotaddict.org/dc2/details/checkStoreVersion)
 [![License](https://img.shields.io/github/license/JcDenis/checkStoreVersion)](https://git.dotclear.watch/JcDenis/checkStoreVersion/blob/master/LICENSE)
 
+## IMPORTANT
+
+__This plugin is no more maintained as their functions are integrated to Dotclear update dashboard.__
+
 ## ABOUT
 
 _checkStoreVersion_ is a plugin for the open-source web publishing software called [Dotclear](https://www.dotclear.org).
